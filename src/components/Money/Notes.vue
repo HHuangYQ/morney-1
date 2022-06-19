@@ -4,7 +4,7 @@
       <span class="name">备注</span>
       <input v-model="value"
              placeholder="在这里添加备注"
-             type="text"  >
+             type="text">
     </label>
   </div>
 </template>
@@ -14,7 +14,7 @@ import Vue from 'vue';
 import {Component} from 'vue-property-decorator';
 
 @Component
-export default class Notes extends Vue{
+export default class Notes extends Vue {
   value = '';
 
 };
