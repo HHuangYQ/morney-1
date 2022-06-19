@@ -31,7 +31,6 @@ export default class Types extends Vue {
       console.log('没有xxx')
     }else{
       console.log(this.xxx.toString());
-
     }
   }
 }
