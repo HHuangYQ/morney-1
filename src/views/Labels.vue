@@ -2,10 +2,9 @@
   <Layout>
     <div class="tags">
       <router-link v-for="tag in tags"
-                   :key="tag.id"
-                   :to="`/labels/edit/${tag.id}`"
-                    class="tag">
-        <span>{{ tag.name }}</span>
+                   :key="tag.id" :to="`/labels/edit/${tag.id}`"
+                   class="tag">
+        <span>{{tag.name}}</span>
         <Icon name="right"/>
       </router-link>
     </div>
@@ -18,28 +17,24 @@
   </Layout>
 </template>
 
-<script lang="ts">
-import Vue from 'vue';
-import {Component} from 'vue-property-decorator';
-import tagListModel from '@/models/tagListModel';
-import Button from '@/components/Button.vue';
-import store from '@/store/index2';
-
-tagListModel.fetch();
-@Component({
-  components: {Button}
-})
-export default class labels extends Vue {
-  tags = store.tagList;
-
-  createTag() {
-    const name = window.prompt('请输入标签名');
-    if (name) {
-      store.createTag(name);
+  <script lang="ts">
+    import Vue from 'vue';
+    import {Component} from 'vue-property-decorator';
+    import Button from '@/components/Button.vue';
+    import store from '@/store/index2';
+    @Component({
+      components: {Button}
+    })
+    export default class Labels extends Vue {
+      tags = store.tagList; // 知识点1
+      createTag() {
+        const name = window.prompt('请输出标签名');
+        if (name) {
+          store.createTag(name);
+        }
+      }
     }
-  }
-};
-</script>
+  </script>
 
 <style lang="scss" scoped>
 .tags {
