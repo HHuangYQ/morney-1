@@ -1,7 +1,6 @@
 import createId from '@/assets/lib/createId';
 
 const localStorageKeyName = 'tagList';
-
 const tagListModel: TagListModel = {
   data: [],
   fetch() {

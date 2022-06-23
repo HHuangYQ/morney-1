@@ -18,6 +18,9 @@ type TagListModel = {
   remove: (id: string) => boolean
   save: () => void
 }
-interface window{
-  tagList:Tag[]
+
+
+interface Window{
+  tagList:Tag[];
+  createTag:(name:string)=>void
 }
