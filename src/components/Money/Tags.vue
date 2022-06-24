@@ -18,31 +18,30 @@ import {Component, Prop} from 'vue-property-decorator';
 
 @Component({
   computed:{
-    tagList(){
-      // TODO
-    // return this.$store.fetchTags()
-    return []
+   tagList() {
+        return this.$store.state.tagList;
+      }
     }
-  }
-})
-export default class Tags extends Vue{
-  selectedTags: string[] = [];
-
-
-  toggle(tag:string){
-    const index =this.selectedTags.indexOf(tag);
-    if(index>=0){
+  })
+  export default class Tags extends Vue {
+    selectedTags: string[] = [];
+  
+  created() {
+      this.$store.commit('fetchTags');
+    }
+    toggle(tag: string) {
+      const index = this.selectedTags.indexOf(tag);
+      if (index >= 0){
       this.selectedTags.splice(index,1)
     }else{
       this.selectedTags.push(tag);
     }
     this.$emit('update:value',this.selectedTags)
   }
-  create(){
-    const name =  window.prompt('请输入标签名');
-    if(!name){return window.alert('标签名不能为空')}
-    // TODO
-      // store.createTag(name)
+  create() {
+      const name = window.prompt('请输入标签名');
+      if (!name) { return window.alert('标签名不能为空'); }
+       this.$store.commit('createTag', name);
     }
 };
 </script>
