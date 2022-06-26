@@ -30,25 +30,28 @@ import recordTypeList from '@/constants/recordTypeList';
   components: {Tabs},
 })
 export default class Statistics extends Vue {
-  get recordList() {
-    return (this.$store.state as RootState).recordList;
-  }
-
   get result() {
     const {recordList} = this;
-    type HashTableValue = {title:string,items:RecordList[]}
+    type HashTableValue = { title:string, items:RecordList[]}
+
     const hashTable: { [key: string]: HashTableValue} = {};
     for (let i = 0; i < recordList.length; i++) {
-      const [date, item] = recordList[i].createdAt!.split('T');
-      hashTable[date] = hashTable[date] || {title:date,items:[]};
+      const [date, time] = recordList[i].createdAt!.split('T');
+      hashTable[date] = hashTable[date] || {title:date, items:[]};
+
       hashTable[date].items.push(recordList[i])
     }
     return hashTable;
   }
+  get recordList() {
+    return (this.$store.state as RootState).recordList;
+  }
 
   tagString(tags:Tag[]){
-    return tags.length === 0? '无' : tags.join(',')
+    return tags.length === 0 ? '无' : tags.join(',')
   }
+
+
 
   beforeCreate() {
     this.$store.commit('fetchRecords');
