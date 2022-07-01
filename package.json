@@ -11,7 +11,9 @@
   "dependencies": {
     "core-js": "^3.4.4",
     "dayjs": "^1.11.3",
+    "file-loader": "^6.2.0",
     "register-service-worker": "^1.6.2",
+    "url-loader": "^4.1.1",
     "vue": "^2.6.10",
     "vue-class-component": "^7.0.2",
     "vue-property-decorator": "^8.3.0",
