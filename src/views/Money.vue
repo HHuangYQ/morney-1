@@ -4,6 +4,13 @@
       <NumberPad :value.sync="record.amount" @submit="saveRecord" />
       <Tabs :data-source="recordTypeList"
       :value.sync="record.type"/>
+      <div class="notes">
+        <FormItem
+          :value.sync="record.notes"
+          field-name="备注"
+          placeholder="在这里输入备注"
+        />
+      </div>
       <div class="createdAt">
         <FormItem
           :value.sync="record.createdAt"
@@ -11,13 +18,8 @@
           placeholder="在这里输入日期"
           type="date"
         />
-      </div><div class="notes">
-        <FormItem
-          :value.sync="record.notes"
-          field-name="备注"
-          placeholder="在这里输入备注"
-        />
       </div>
+      
       
       <Tags @update:value="record.tags = $event" />
     </layout>

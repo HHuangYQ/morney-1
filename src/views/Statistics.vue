@@ -5,7 +5,9 @@
       :value.sync="type"
       class-prefix="type"
     />
-    <Chart :options="x"/>
+    <div ref="chartWrapper" class="chart-wrapper">
+      <Chart :options="x" class="chart" />
+    </div>
     <ol v-if="groupedList.length > 0">
       <li v-for="(group, index) in groupedList" :key="index">
         <h3 class="title">
@@ -31,14 +33,10 @@ import Tabs from "@/components/Tabs.vue";
 import recordTypeList from "@/constants/recordTypeList";
 import dayjs from "dayjs";
 import clone from "@/assets/lib/clone";
-import Chart from '@/components/Chart.vue'
-
-
+import Chart from "@/components/Chart.vue";
 
 @Component({
-
-  components: { Tabs,Chart},
-
+  components: { Tabs, Chart },
 })
 export default class Statistics extends Vue {
   recordTypeList = recordTypeList;
@@ -46,6 +44,7 @@ export default class Statistics extends Vue {
   get recordList() {
     return (this.$store.state as RootState).recordList;
   }
+
   type = "-";
 
   get groupedList() {
@@ -84,34 +83,78 @@ export default class Statistics extends Vue {
     return result;
   }
 
- get x() {
-      return {
-        xAxis: {
-          type: 'category',
+  get x() {
+    return {
+      grid: {
+        left: 0,
+        right: 0,
+      },
+      xAxis: {
+        type: "category",
+        data: [
+          "1",
+          "2",
+          "3",
+          "4",
+          "5",
+          "6",
+          "7",
+          "8",
+          "9",
+          "10",
+          "11",
+          "12",
+          "13",
+          "14",
+          "15",
+          "16",
+          "17",
+          "18",
+          "19",
+          "20",
+          "21",
+          "22",
+          "23",
+          "24",
+          "25",
+          "26",
+          "27",
+          "28",
+          "29",
+          "30",
+        ],
+        axisTick: { alignWithLabel: true },
+        axisLine: { lineStyle: { color: "#666" } },
+      },
+      yAxis: {
+        type: "value",
+        show: false,
+      },
+      series: [
+        {
+          symbol: "circle",
+          symbolSize: 10,
+          itemStyle: { borderWidth: 1, color: "#666", borderColor: "#666" },
           data: [
-            '1', '2', '3', '4', '5', '6', '7', '8', '9', '10',
-            '11', '12', '13', '14', '15', '16', '17', '18', '19', '20',
-            '21', '22', '23', '24', '25', '26', '27', '28', '29', '30',
-          ]
-        },
-        yAxis: {
-          type: 'value'
-        },
-        series: [{
-          data: [
-            820, 932, 901, 934, 1290, 1330, 1320,
-            820, 932, 901, 934, 1290, 1330, 1320,
-            820, 932, 901, 934, 1290, 1330, 1320,
-            820, 932, 901, 934, 1290, 1330, 1320, 1, 2
+            820, 932, 901, 934, 1290, 1330, 1320, 820, 932, 901, 934, 1290,
+            1330, 1320, 820, 932, 901, 934, 1290, 1330, 1320, 820, 932, 901,
+            934, 1290, 1330, 1320, 1, 2,
           ],
-          type: 'line'
-        }],
-        tooltip: {show: true}
-      };
-    }
+          type: "line",
+        },
+      ],
+      tooltip: { show: true,triggerOn:'click',
+      position:'top',
+      formatter:'{c}'
+      },
+    };
+  }
 
   tagString(tags: Tag[]) {
     return tags.length === 0 ? "无" : tags.map((t) => t.name).join("，");
+  }
+  mounted() {
+    (this.$refs.chartWrapper as HTMLDivElement).scrollLeft = 9999;
   }
 
   beforeCreate() {
@@ -141,9 +184,11 @@ export default class Statistics extends Vue {
   padding: 16px;
   text-align: center;
 }
+
 ::v-deep {
   .type-tabs-item {
     background: white;
+
     &.selected {
       background: #57b8f1;
 
@@ -157,6 +202,7 @@ export default class Statistics extends Vue {
     height: 48px;
   }
 }
+
 %item {
   padding: 8px 16px;
   line-height: 24px;
@@ -164,6 +210,7 @@ export default class Statistics extends Vue {
   justify-content: space-between;
   align-content: center;
 }
+
 .title {
   @extend %item;
 }
@@ -172,9 +219,21 @@ export default class Statistics extends Vue {
   background: white;
   @extend %item;
 }
+
 .notes {
   margin-right: auto;
   margin-left: 16px;
   color: #999;
+}
+
+.chart {
+  width: 430%;
+
+  &-wrapper {
+    overflow: auto;
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
 }
 </style>  
