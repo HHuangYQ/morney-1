@@ -11,6 +11,14 @@
           :value.sync="record.notes"
         />
       </div>
+      <div class="createdAt">
+        <FormItem
+          :value.sync="record.createdAt"
+          field-name="日期"
+          placeholder="在这里输入日期"
+          type="date"
+        />
+      </div>
       <Tags @update:value="record.tags = $event" />
     </layout>
   </div>
@@ -40,6 +48,7 @@ export default class Money extends Vue {
     notes: "",
     type: "-",
     amount: 0,
+    createdAt:new Date().toISOString(),
   };
   created() {
     this.$store.commit('fetchRecords')
